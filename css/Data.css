@@ -107,4 +107,36 @@
 				height: 720px;
 			}
 			
+	
 
+.inner {
+    display: flex;
+    line-height: 4rem;
+    font-size: 1.2rem;
+    color: #333;
+    text-align: center;
+}
+
+.inner span {
+    flex: 1 1;
+    width: auto;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.on {
+    color: #4169e2;
+}
+
+.inner span.on i {
+    background-color: #4169e2;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 4rem;
+    height: .24rem;
+    margin: auto;
+    display: inline-block;
+}
