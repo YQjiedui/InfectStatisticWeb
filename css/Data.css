@@ -1,4 +1,14 @@
-
+.all {			
+	color: #ffffff;	
+	font-size: 2rem;
+	padding: 5px;
+	margin: 10px 20px;
+	border-radius: 5px;
+	text-align: center;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	background: rgba(40, 40, 40, 0.8);
+	border: solid 1px #e9f7f6;
+			}
 .bigNumberPanel {
     padding: 1rem 1rem;
     display: flex;
