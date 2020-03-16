@@ -73,7 +73,7 @@
 			.bigNumberItem {
 				margin: 0.5rem 0;
 				text-decoration: none;
-				width: 33.3%;
+				width: 25%;
 			}
 
 			.numberTitle {
@@ -105,6 +105,11 @@
 				margin: 20px auto; /* 外边距 */
 				width: 1000px;
 				height: 720px;
-			}
+            }
+            
+            #sure-label {
+                text-align: center;
+                width: 25%;
+            }
 			
 

@@ -3,35 +3,38 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <title>疫情数据图</title>
+    <title>该省疫情信息图</title>
+    <link href=css/city.css rel=stylesheet>
     <script src="js/jquery-2.0.0.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/echarts.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/china.js" type="text/javascript" charset="utf-8"></script>
-       <link href=css/city.css rel=stylesheet>
 </head>
-
 <body>
 
-    <div class="data">
-        <div class="data-board">
-            <font>确诊</font>
-            <label>2290</label>
-        </div>
-        <div class="data-board">
-            <font>疑似</font>
-            <label>2290</label>
-        </div>
-        <div class="data-board">
-            <font>治愈</font>
-            <label>2290</label>
-        </div>
-        <div class="data-board">
-            <font>死亡</font>
-            <label>2290</label>
-        </div>
+    <div class="bigNumberPanel">
+        <p class="bigNumberTitle">今日 2020-03-16 确诊</p>
+        <ul class="bigNumberList">
+            <li class="bigNumberItem">
+                <span style="color: rgb(247, 76, 49);"  class="number">确诊人数</span>
+                <span id="sure-label">0</span>
+            </li>
+            <li class="bigNumberItem">
+                <span style=" color: rgb(247,130,7);" class="number">疑似人数</span>
+                <span id="inf-label">0</span>
+            </li>
+            <li class="bigNumberItem">
+                <span style="color:rgb(174,33,44)" class="number">治愈人数</span>
+                <span id="cure-label">0</span>
+            </li>
+    
+            <li class="bigNumberItem">
+                <span style="color:rgb(174,33,44)" class="number">死亡人数</span>
+                <span id="dead-label">0</span>
+            </li>
+        </ul>
     </div>
     <ul class="nav">
-        <li class="">确诊人数曲线</li>
+        <li class="">累计确诊人数曲线</li>
     </ul>
 
     <div id="tip">数据正在加载中...</div>
@@ -52,8 +55,7 @@
                 today = GetPrevDay(today);
             }
 
-            //倒转后的新数组
-            date = $.map(date, function (v, i) { // map方法匿名函数传的值v是值、i是索引。
+            date = $.map(date, function (v, i) {
                 return date[date.length - 1 - i];
             });
 
@@ -64,8 +66,6 @@
             var getDateData = setInterval(function () {
                 $.get("http://api.tianapi.com/txapi/ncovcity/index?key=1b2371819b572b099150da823810349f&date=" + date[count],
                     function (data, status) {
-                        $("#tip").fadeOut(500);
-                        console.log(data)
                         for (var j = 0; j < data.newslist.length; j++) {
                             if (data.newslist[j].provinceShortName == city) {
                                 datay.push(data.newslist[i].confirmedCount);
@@ -76,21 +76,16 @@
                 count++;
 
                 if (count >= 10) {
-                    console.log(count);
                     count = 0;
                     clearInterval(getDateData);
                 }
 
-            }, 3000);
-            // 基于准备好的dom，初始化echarts实例
+            }, 4000);
+
             var myChart = echarts
                 .init(document.getElementsByClassName('content')[0]);
-            // 指定图表的配置项和数据
+
             var option = {
-                title: {
-                    text: '中国疫情',
-                    subtext: city
-                },
                 tooltip: {},
                 legend: {
                     data: ['日期', '人数']
@@ -102,30 +97,21 @@
 
                 },
                 series: [{
-                    name: '人数',
                     type: 'line',
                     smooth: true,
                     data: datay,
                     itemStyle: {
                         normal: {
-                            color: '#FF5500'
+                            color: '#4169E1'
                         },
                     }
                 },],
-                dataZoom: {
-                    realtime: true, //拖动滚动条时是否动态的更新图表数据
-                    height: 25, //滚动条高度
-                    start: 0, //滚动条开始位置（共100等份）
-                    end: 100
-                    //结束位置（共100等份）
-                }
             };
-            // 使用刚指定的配置项和数据显示图表。
+
             setInterval(function () {
                 myChart.setOption(option);
             }, 3000);
 
-            //根据窗口的大小变动图表 --- 若有多个图表，可以写多个
             window.onresize = function () {
                 myChart.resize();
             }
@@ -133,8 +119,7 @@
             setAllData(myChart, "http://api.tianapi.com/txapi/ncovcity/index?key=1b2371819b572b099150da823810349f", city);
 
         });
-        // 获取地址栏的get参数
-        //name是要查找的参数名
+
         function GetQueryString(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
             var r = window.location.search.substr(1).match(reg);
@@ -142,7 +127,6 @@
             return null;
         }
 
-        //获取指定时间的前一天
         function GetPrevDay(str) {
             var year = str.substring(0, 4);
             var month = str.substring(5, 7);
@@ -162,7 +146,7 @@
             }
             return strYear + "-" + strMonth + "-" + strDay;
         }
-        // 获取今天
+
         function getToday() {
             var nowdate = new Date();
             var y = nowdate.getFullYear();
@@ -180,26 +164,23 @@
         function setAllData(mapBoxEchart, link, city) {
             $.get(link,
                 function (data, status) {
-                    var now1 = 0;
-                    var now2 = 0;
-                    var now3 = 0;
-                    var now4 = 0;
+                    var sure = 0;
+                    var inf = 0;
+                    var cure = 0;
+                    var dead = 0;
 
                     for (var i = 0; i < data.newslist.length; i++) {
                         if (data.newslist[i].provinceShortName == city) {
-                            now1 += data.newslist[i].confirmedCount;
-                            now2 += data.newslist[i].suspectedCount;
-                            now3 += data.newslist[i].curedCount;
-                            now4 += data.newslist[i].deadCount;
+                            sure += data.newslist[i].confirmedCount;
+                            inf += data.newslist[i].suspectedCount;
+                            cure += data.newslist[i].curedCount;
+                            dead += data.newslist[i].deadCount;
                         }
                     }
-
-                    var now = [now1, now2, now3, now4];
-
-                    for (var i = 0; i < $(".data-board").length; i++) {
-                        $(".data-board label").eq(i).html(now[i]);
-                    }
-
+                    document.getElementById("sure-label").innerHTML = sure;
+                    document.getElementById("inf-label").innerHTML = inf;
+                    document.getElementById("cure-label").innerHTML = cure;
+                    document.getElementById("dead-label").innerHTML = dead;
                 });
         }
     </script>

@@ -1,62 +1,52 @@
 <!DOCTYPE html>
-<html lang=en><head><meta charset=utf-8>
-	<meta http-equiv=X-UA-Compatible content="IE=edge">
-	<meta name=viewport content="width=device-width,initial-scale=1">
-	 
-	<link href=css/Data.css rel=stylesheet>
-	 <script src="js/echarts.min.js"></script>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>新型冠状病毒肺炎实时地图</title>
+    <link href=css/Data.css rel=stylesheet>
+    <script src="js/echarts.min.js"></script>
     <script src="js/china.js"></script>
     <script src="js/data.js"></script>
-	</head>
-	<body>
-		<div class="all">冠状病毒肺炎疫情数据</div>
-<!--gh-->
-<div class="bigNumberPanel">
-                            <p class="bigNumberTitle">数据更新时间 2020-03-16</p>
-                            <ul class="bigNumberList">
-                                <li class="bigNumberItem">
-                                    <span class="numberTitle">较昨日无变化</span>
-                                    <span style="color: rgb(247, 76, 49);"  class="number">25153</span>
-                                    <span class="numberDesc">现存确诊</span>
-                                </li>
-                                <li class="bigNumberItem">
-                                    <span class="numberTitle">较昨日无变化</span>
-                                    <span style=" color: rgb(247,130,7);" class="number">522</span>
-                                    <span class="numberDesc">现存疑似</span>
-                                </li>
-                                <li class="bigNumberItem">
-                                    <span class="numberTitle">较昨日无变化</span>
-                                    <span style="color:rgb(174,33,44)" class="number">5952</span>
-                                    <span class="numberDesc">现存重症</span>
-                                </li>
-						
-                                <li class="bigNumberItem">
-                                    <span class="numberTitle">较昨日无变化</span>
-                                    <span style="color:rgb(174,33,44)" class="number">80585</span>
-                                    <span class="numberDesc">累计确认</span>
-                                </li>
-                                <li class="bigNumberItem">
-                                    <span class="numberTitle">较昨日无变化</span>
-                                    <span style="color:rgb(93,112,146)" class="number">3016</span>
-                                    <span class="numberDesc">累计死亡</span>
-                                </li>
-                                <li class="bigNumberItem">
-                                    <span class="numberTitle">较昨日无变化</span>
-                                    <span style="color:rgb(40, 183,163)"  class="number">52416</span>
-                                    <span class="numberDesc">累计治愈</span>
-                                </li>
-                            </ul>
-                        </div>
+</head>
+<body>
+    <div class="bigNumberPanel">
+        <p class="bigNumberTitle">数据更新时间 2020-03-16</p>
+        <ul class="bigNumberList">
+            <li class="bigNumberItem">
+                <span style="color: rgb(247, 76, 49);"  class="number">25153</span>
+                <span class="numberDesc">现存确诊</span>
+            </li>
+            <li class="bigNumberItem">
+                <span style=" color: rgb(247,130,7);" class="number">522</span>
+                <span class="numberDesc">现存疑似</span>
+            </li>
+            <li class="bigNumberItem">
+                <span style="color:rgb(174,33,44)" class="number">5952</span>
+                <span class="numberDesc">现存重症</span>
+            </li>
+    
+            <li class="bigNumberItem">
+                <span style="color:rgb(174,33,44)" class="number">80585</span>
+                <span class="numberDesc">累计确认</span>
+            </li>
+            <li class="bigNumberItem">
+                <span style="color:rgb(93,112,146)" class="number">3016</span>
+                <span class="numberDesc">累计死亡</span>
+            </li>
+            <li class="bigNumberItem">
+                <span style="color:rgb(40, 183,163)"  class="number">52416</span>
+                <span class="numberDesc">累计治愈</span>
+            </li>
+        </ul>
+    </div>
 
-		<ul class="nav">
-			<li class="select-nav">现有确诊</li>
-			<li>累计确诊</li>
-		</ul>
-
-	<div id="main"></div>
-		
-	</body>
-	<script>
+<ul class="nav">
+<li class="select-nav">现有确诊</li>
+<li>累计确诊</li>
+</ul>
+<div id="main"></div>
+</body>
+<script>
     let chart = echarts.init(document.getElementById('main'));
 
     let caseList = component.caseList;
@@ -79,7 +69,7 @@
                 color: '#aaa',
                 fontWeight: 'italic'
             },
-    
+            sublink: 'https://voice.baidu.com/act/newpneumonia/newpneumonia/',
             left: 'center',
         },
         geo: {
@@ -124,6 +114,9 @@
         ]
     };
 
+    chart.on('click', function(params) {
+			window.open("city.html?city="+params.data.name,"_self");
+	});
     chart.setOption(option);
 </script>
-	</html>
+</html>
