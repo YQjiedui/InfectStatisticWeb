@@ -1,0 +1,58 @@
+
+.bigNumberPanel {
+    padding: 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: .08rem solid #ebebeb;
+    border-radius: 0.32rem;
+    box-shadow: 0 0.32rem 0.96rem 0 rgba(0, 0, 0, .05);
+}
+
+.bigNumberTitle {
+    align-self: center;
+    background-color: #eeeeee;
+    padding: .4rem 1rem;
+    border-radius: 1rem;
+    color: #666;
+    font-size: 1rem;
+}
+
+.bigNumberList {
+    display: flex;
+    flex-flow: wrap;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.bigNumberItem {
+    margin: 0.5rem 0;
+    text-decoration: none;
+    width: 33.3%;
+}
+
+.numberTitle {
+    display: block;
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: #666;
+    text-align: center;
+}
+
+.number {
+    display: block;
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    text-align: center;
+}
+
+.numberDesc {
+    display: block;
+    text-align: center;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.2rem;
+}
